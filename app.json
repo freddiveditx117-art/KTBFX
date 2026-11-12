@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "KTBFX",
-    "slug": "ktbfx",
+"slug": "ktbfx",
+"owner": "Freddiv",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
