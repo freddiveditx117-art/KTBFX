@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "KTBFX",
+    "slug": "ktbfx",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ktbfx.app"
+    },
+    "android": {
+      "package": "com.ktbfx.app"
+    },
+    "splash": {
+      "backgroundColor": "#101010"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
