@@ -18,9 +18,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Configure Expo project
-        run: npx eas-cli@latest init --force --non-interactive
+      - name: Check Expo account
+        run: npx eas-cli@latest whoami
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
