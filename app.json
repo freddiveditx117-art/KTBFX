@@ -1,10 +1,8 @@
-
 {
   "expo": {
     "name": "KTBFX",
     "slug": "ktbfx",
-    "owner": "freddiv1117",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "ios": {
@@ -12,14 +10,15 @@
       "bundleIdentifier": "com.ktbfx.app"
     },
     "android": {
-      "package": "com.ktbfx.app"
+      "package": "com.ktbfx.app",
+      "versionCode": 2
     },
     "splash": {
       "backgroundColor": "#101010"
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "owner": "freddiv1117"
   }
 }
-
