@@ -1,4 +1,3 @@
-
 {
   "expo": {
     "name": "KTBFX",
@@ -22,15 +21,5 @@
       "**/*"
     ],
     "owner": "freddiv1117"
-  }
-}
-{
-  "expo": {
-    "name": "KTBFX",
-    "slug": "ktbfx",
-    "version": "1.0.0",
-    "android": {
-      "package": "com.freddiv.ktbfx"
-    }
   }
 }
