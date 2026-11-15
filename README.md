@@ -1,111 +1,121 @@
-# KTBFX 2.0 — Achievements & Rewards
+# KTBFX — Kettlebell Training Experience
 
-Módulo de logros, medallas, XP, niveles y misiones para una aplicación Expo / React Native.
+Aplicación móvil de entrenamiento con kettlebell construida con **Expo, React Native y TypeScript**. La versión de la aplicación configurada actualmente es **2.0.0** (`com.ktbfx.app`); la interfaz muestra el nombre del sistema de entrenamiento KTBFX 3.0.
 
-## Contenido
+## Funciones disponibles en el código actual
 
-- `src/achievements/achievementsData.js`: 18 logros, niveles y misiones de ejemplo.
-- `src/achievements/achievementsEngine.js`: cálculo de XP y desbloqueo único de medallas.
-- `src/achievements/achievementsStorage.js`: persistencia local con AsyncStorage.
-- `src/achievements/AchievementsProvider.jsx`: estado global y acciones para la app.
-- `src/components/`: tarjetas, insignias, barra XP y animación de desbloqueo.
-- `src/screens/`: pantallas de logros, medallas y misiones.
-- `src/examples/IntegrationExample.jsx`: ejemplo de integración.
+### Biblioteca de ejercicios
+- Catálogo de **94 movimientos** organizado por categorías y niveles.
+- Búsqueda por nombre del ejercicio o grupo muscular.
+- Fichas con instrucciones paso a paso, enfoque muscular, orientación general de carga y notas de seguridad.
+- Fotografías de referencia de Wikimedia Commons reutilizadas por familias de movimientos. No son 94 fotografías individuales ni ilustraciones anatómicas específicas.
+- Créditos de fotografía y referencias de licencia visibles en las fichas.
+- Enlace a búsquedas educativas de YouTube para movimientos básicos e intermedios. Los videos son contenido externo; los movimientos avanzados muestran un aviso para aprenderlos con supervisión cualificada.
 
-## 1. Instalar dependencia
+### Rutinas y control del entrenamiento
+- Rutina personal editable: añadir y quitar movimientos.
+- Cronómetro para registrar el tiempo de sesión.
+- Temporizador por intervalos con fases automáticas de actividad y descanso.
+- Duración configurable de actividad y descanso.
+- Controles para iniciar, pausar, reanudar, reiniciar y saltar de fase.
+- Conteo de rondas y alertas habladas mediante Expo Speech.
+- Control para activar o desactivar las alertas de voz.
 
-Desde la raíz de tu proyecto Expo:
+### Música
+- Pestaña de música con reproductor web integrado para Dogmazic Radio.
+- Reproducción en línea: requiere conexión a Internet.
+- La música se transmite desde el servicio externo; KTBFX no descarga ni redistribuye las canciones. Las licencias dependen de cada artista y de cada obra.
+
+### Perfil y datos locales
+- Perfil local de demostración.
+- Favoritos, rutina e historial de sesiones guardados con AsyncStorage.
+- Navegación inferior vertical en el lateral derecho.
+- Botón físico de retroceso de Android: cierra primero la ficha abierta y, después, vuelve a Inicio desde otras secciones.
+
+### Sistema de logros (paquete independiente)
+El repositorio también contiene `packages/ktbfx-achievements`, un paquete para Expo/React Native con medallas, niveles, XP, misiones semanales y almacenamiento local. Consulta su [guía de instalación](packages/ktbfx-achievements/README.md). Este módulo requiere integrarse explícitamente con los eventos y pantallas de la aplicación principal; no debe asumirse que el perfil local de demostración ya sincroniza estos datos.
+
+## Estado y limitaciones conocidas
+
+- El perfil actual es local y de demostración. No implementa autenticación real, verificación de correo ni recuperación segura de contraseña.
+- Los datos de AsyncStorage permanecen en el dispositivo; no existe sincronización en la nube ni recuperación automática en otro teléfono.
+- Las fotografías son referencias por categoría y pueden repetirse entre movimientos.
+- Los videos se abren como resultados externos de YouTube; KTBFX no aloja ni controla esos videos.
+- La radio requiere Internet y depende del reproductor y servicio externos.
+- La interfaz y el temporizador no sustituyen la orientación de un entrenador. Empieza con movimientos que puedas controlar, usa cargas ligeras o practica sin peso y detente si aparece dolor o mareo.
+
+## Tecnologías
+
+- Expo SDK 54
+- React 19.1
+- React Native 0.81.4
+- TypeScript 5.9
+- AsyncStorage 2.2
+- React Native WebView 13.15
+- Expo Speech 14
+
+## Ejecutar localmente
+
+Requisitos: Node.js 22 recomendado y npm.
 
 ```bash
-npx expo install @react-native-async-storage/async-storage
+npm install
+npx expo config --json
+npx expo start
 ```
 
-## 2. Copiar los archivos
+Para abrir en Android con Expo:
 
-Copia la carpeta `src` de este paquete dentro de la raíz de tu proyecto. Si ya tienes una carpeta `src`, combina las carpetas sin borrar tus archivos existentes.
-
-## 3. Envolver la aplicación con el proveedor
-
-En tu `App.js` o en el componente raíz:
-
-```jsx
-import React from "react";
-import { AchievementsProvider } from "./src/achievements/AchievementsProvider";
-import AppNavigator from "./src/navigation/AppNavigator";
-
-export default function App() {
-  return (
-    <AchievementsProvider>
-      <AppNavigator />
-    </AchievementsProvider>
-  );
-}
+```bash
+npx expo start --android
 ```
 
-Si tu aplicación no usa `AppNavigator`, conserva tu componente raíz actual dentro de `AchievementsProvider`.
+## Compilación Android
 
-## 4. Registrar actividades desde tus entrenamientos
+### GitHub Actions
+El workflow `.github/workflows/build.yml` permite iniciar manualmente una compilación o ejecutarla al cambiar archivos de la app. Valida la configuración Expo, genera el proyecto Android nativo y construye un **APK debug** con Gradle. El APK se publica como artefacto de GitHub Actions durante 14 días.
 
-Importa el hook en la pantalla o componente donde termina una actividad:
+1. Abre la pestaña **Actions** del repositorio.
+2. Selecciona **Build KTBFX Android APK**.
+3. Ejecuta **Run workflow** en la rama `main`.
+4. Espera a que todos los pasos terminen correctamente.
+5. Descarga `KTBFX-Android-APK` desde los artefactos de la ejecución.
 
-```jsx
-import { useAchievements } from "../achievements/AchievementsProvider";
+La existencia del workflow no significa que una compilación haya terminado correctamente; revisa el resultado de cada ejecución.
 
-const { recordActivity } = useAchievements();
+### Expo EAS
+El archivo `eas.json` define:
+- `development`: cliente de desarrollo interno.
+- `preview`: APK de distribución interna.
+- `production`: Android App Bundle (AAB), destinado al flujo de publicación.
 
-// Después de que el usuario complete realmente una sesión:
-await recordActivity("workout_completed");
+Comandos:
 
-// Cuando complete un tutorial:
-await recordActivity("tutorial_completed");
-
-// Cuando apruebe una evaluación técnica:
-await recordActivity("technique_assessment_passed");
-
-// Cuando aprenda un movimiento nuevo:
-await recordActivity("movement_learned", { movementId: "kettlebell_swing" });
-
-// Cuando complete una misión:
-await recordActivity("challenge_completed");
+```bash
+eas build --platform android --profile preview
+eas build --platform android --profile production
 ```
 
-Los eventos deben dispararse desde el resultado real de cada actividad, no al abrir una pantalla ni al pulsar repetidamente un botón de prueba.
+La compilación de producción genera el formato AAB configurado para Google Play. La publicación en Google Play es un paso separado.
 
-## 5. Abrir las pantallas
+## Identificadores de la aplicación
 
-Puedes agregar estas pantallas a tu navegación:
+- Expo slug: `ktbfx`
+- Android applicationId: `com.ktbfx.app`
+- iOS bundle identifier: `com.ktbfx.app`
+- Versión Expo configurada: `2.0.0`
+- Android versionCode configurado: `2`
 
-```jsx
-import AchievementsScreen from "./src/screens/AchievementsScreen";
-import MedalsScreen from "./src/screens/MedalsScreen";
-import MissionsScreen from "./src/screens/MissionsScreen";
-```
+## Estructura destacada
 
-Luego regístralas en tu navegador actual. Este paquete no presupone si usas React Navigation, Expo Router u otro sistema.
+- `App.tsx`: interfaz principal, catálogo, rutinas, temporizador, música y almacenamiento local.
+- `app.json`: configuración Expo e identificadores.
+- `eas.json`: perfiles de compilación EAS.
+- `.github/workflows/build.yml`: workflow de compilación APK Android.
+- `packages/ktbfx-achievements/`: módulo independiente de logros, niveles y misiones.
+- `KTBFX_2_0_NOTAS.md`: notas funcionales y limitaciones.
+- `CHANGELOG.md`: historial de actualizaciones.
 
-## 6. Consultar el progreso
+## Seguridad y privacidad
 
-```jsx
-const {
-  progress,
-  level,
-  unlockedAchievements,
-  recordActivity,
-  resetProgress
-} = useAchievements();
-```
-
-`resetProgress()` es una función de desarrollo. No la conectes a un botón visible para usuarios.
-
-## 7. Sincronización entre dispositivos
-
-Esta entrega guarda el progreso localmente en el dispositivo mediante AsyncStorage. Para sincronizar entre dispositivos y recuperar el progreso al iniciar sesión, conecta `AchievementsProvider` a tu backend y usa el `userId` autenticado como clave. No se incluye una sincronización ficticia ni credenciales de servidor.
-
-## 8. Notas importantes
-
-- Los logros se desbloquean una sola vez.
-- Los XP se calculan en el motor y no deben asignarse desde la interfaz.
-- La evaluación de técnica debe ser real y apropiada. No marques una técnica como aprobada solo por ver un video.
-- No premies entrenar con dolor, usar cargas excesivas o sacrificar la recuperación.
-- Los datos de AsyncStorage no son una protección contra manipulación. Para tablas competitivas o recompensas de valor, valida eventos y XP en el servidor.
-- Las medallas usan iconos vectoriales como marcadores visuales. Puedes sustituirlos por ilustraciones PNG propias más adelante.
+No publiques tokens de Expo, credenciales de GitHub, claves privadas ni contraseñas. No uses una contraseña reutilizada en el perfil local de demostración. Antes de añadir cuentas reales o sincronización, configura un backend con autenticación segura y reglas de acceso por usuario.
