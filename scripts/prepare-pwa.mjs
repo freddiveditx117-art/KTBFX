@@ -88,7 +88,7 @@ const apkButton = `
 </style>
 <a id="ktbfx-apk-download" href="${apkDownload}" download="KTBFX.apk" aria-label="Descargar aplicación KTBFX para Android">⬇ Descargar APK</a>
 `;
-html = html.replace('</body>', apkButton + '\\n' + '</body>');
+html = html.replace('</body>', apkButton + '\n' + '</body>');
 const registration = `
 <script>
   if ('serviceWorker' in navigator) {
