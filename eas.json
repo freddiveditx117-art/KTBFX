@@ -19,3 +19,16 @@
     }
   }
 }
+{
+  "cli": {
+    "version": ">= 16.0.0"
+  },
+  "build": {
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  }
+}
