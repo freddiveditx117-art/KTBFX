@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="KTBFX: entrenamiento con kettlebell, 94 movimientos, rutinas personalizadas, cronómetro e intervalos.">
+  <title>KTBFX — Kettlebell Training Experience</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10110f;--panel:#191b18;--panel2:#20231f;--text:#f4f5ef;--muted:#a7ada2;--lime:#c6f36a;--line:#30352c;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+    a{color:inherit;text-decoration:none}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.12em}.mark{width:38px;height:38px;border-radius:12px;background:var(--lime);color:#111;display:grid;place-items:center;font-weight:1000;font-size:19px}
+    .navlinks{display:flex;gap:26px;color:var(--muted);font-size:14px}.navlinks a:hover{color:var(--lime)}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 19px;border-radius:12px;font-weight:800;background:var(--lime);color:#111;border:1px solid var(--lime);transition:.2s}.button:hover{transform:translateY(-2px);filter:brightness(1.05)}
+    .button.ghost{background:transparent;color:var(--text);border-color:#555d4d}.button.small{padding:9px 13px;font-size:13px}
+    .hero{padding:88px 0 76px;display:grid;grid-template-columns:1.08fr .92fr;gap:46px;align-items:center}
+    .eyebrow{color:var(--lime);font-size:12px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
+    h1{font-size:clamp(44px,7vw,82px);line-height:.99;letter-spacing:-.065em;margin:18px 0 22px;max-width:720px}
+    h1 span{color:var(--lime)}.lead{font-size:18px;color:var(--muted);max-width:590px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .hero-art{min-height:390px;border:1px solid var(--line);border-radius:28px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 70% 30%,#53672c 0,transparent 40%),linear-gradient(145deg,#272d20,#151713 65%)}
+    .hero-art:before{content:"";position:absolute;width:250px;height:250px;border:35px solid rgba(198,243,106,.16);border-radius:50%;right:8%;top:12%}
+    .kb{position:absolute;left:50%;top:49%;transform:translate(-50%,-50%) rotate(-12deg);width:180px;height:190px}
+    .kb:before{content:"";position:absolute;width:110px;height:85px;border:20px solid #c6f36a;border-bottom:0;border-radius:70px 70px 0 0;left:35px;top:0}
+    .kb:after{content:"";position:absolute;width:160px;height:145px;background:linear-gradient(135deg,#e4f3bd,#829b48 70%,#45552b);border:7px solid #d7e6b2;border-radius:42% 42% 48% 48%;left:10px;top:55px;box-shadow:20px 25px 45px #0008}
+    .art-label{position:absolute;left:24px;bottom:22px;font-size:12px;letter-spacing:.2em;color:#d8e8b6;font-weight:900}
+    .statbar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 76px}.stat{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.stat strong{display:block;font-size:32px;color:var(--lime);line-height:1.1}.stat span{color:var(--muted);font-size:13px}
+    section{padding:66px 0}.section-head{max-width:680px;margin-bottom:30px}h2{font-size:clamp(30px,4vw,48px);letter-spacing:-.045em;line-height:1.08;margin:10px 0 14px}.section-head p,.card p{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px}.ico{width:44px;height:44px;border-radius:13px;background:#2a3320;color:var(--lime);display:grid;place-items:center;font-size:21px;margin-bottom:18px}.card h3{margin:0 0 8px;font-size:19px}.card p{margin:0;font-size:14px}
+    .exercise-band{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:32px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(120deg,#20251b,#171915)}
+    .exercise-number{font-size:clamp(76px,12vw,140px);font-weight:1000;letter-spacing:-.09em;color:var(--lime);line-height:1}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.chip{font-size:12px;border:1px solid #49513d;border-radius:99px;padding:6px 10px;color:#d9e8c0}
+    .download{background:var(--lime);color:#141710;border-radius:24px;padding:38px;display:flex;justify-content:space-between;align-items:center;gap:24px}.download p{color:#35402a;max-width:590px}.download .button{background:#111;color:var(--lime);border-color:#111;white-space:nowrap}
+    .note{font-size:12px;color:var(--muted);margin-top:14px}
+    footer{border-top:1px solid var(--line);padding:28px 0;margin-top:50px;color:var(--muted);font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    @media(max-width:800px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding:60px 0 48px;gap:28px}.hero-art{min-height:300px}.statbar{margin-bottom:30px}.grid{grid-template-columns:1fr 1fr}.exercise-band{grid-template-columns:1fr}.download{align-items:flex-start;flex-direction:column}}
+    @media(max-width:520px){.wrap{width:min(100% - 28px,var(--max))}.grid{grid-template-columns:1fr}.nav{height:66px}.brand{font-size:14px}.hero{padding-top:48px}h1{font-size:49px}.lead{font-size:16px}.stat{padding:15px}.stat strong{font-size:26px}.stat span{font-size:11px}.download{padding:25px}.card{padding:20px}}
+  </style>
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="brand" href="#" aria-label="KTBFX inicio"><span class="mark">K</span><span>KTBFX</span></a>
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="#funciones">Funciones</a><a href="#ejercicios">Ejercicios</a><a href="#entrenamiento">Entrenamiento</a><a href="#descargas">Descargas</a>
+    </nav>
+    <a class="button small" href="https://github.com/freddiveditx117-art/KTBFX">GitHub ↗</a>
+  </header>
+
+  <main>
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">Kettlebell Training Experience</div>
+        <h1>Entrena con intención.<br><span>Supera tus límites.</span></h1>
+        <p class="lead">Tu espacio de entrenamiento con kettlebell. Explora movimientos, organiza tus rutinas y controla cada intervalo desde una sola aplicación.</p>
+        <div class="actions">
+          <a class="button" href="#descargas">Explorar la aplicación <span>↗</span></a>
+          <a class="button ghost" href="#funciones">Conocer funciones</a>
+        </div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Ilustración estilizada de una kettlebell">
+        <div class="kb"></div><div class="art-label">FUERZA · CONTROL · CONSTANCIA</div>
+      </div>
+    </div>
+
+    <div class="wrap statbar" aria-label="Datos de KTBFX">
+      <div class="stat"><strong>94</strong><span>movimientos en el catálogo</span></div>
+      <div class="stat"><strong>24/7</strong><span>tu rutina a tu ritmo</span></div>
+      <div class="stat"><strong>2.0.0</strong><span>versión de la aplicación</span></div>
+    </div>
+
+    <section id="funciones">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Todo en un solo lugar</div><h2>Herramientas para tu entrenamiento.</h2><p>KTBFX reúne recursos prácticos para planificar y registrar tus sesiones sin complicaciones.</p></div>
+        <div class="grid">
+          <article class="card"><div class="ico">◈</div><h3>Biblioteca de ejercicios</h3><p>Encuentra 94 movimientos organizados por categorías y niveles, con instrucciones y orientación general.</p></article>
+          <article class="card"><div class="ico">◎</div><h3>Rutinas personales</h3><p>Prepara tu sesión añadiendo o quitando ejercicios y guarda tu selección en el dispositivo.</p></article>
+          <article class="card"><div class="ico">◷</div><h3>Cronómetro y temporizador</h3><p>Controla el tiempo, configura intervalos de actividad y descanso, y pausa o reanuda cuando lo necesites.</p></article>
+          <article class="card"><div class="ico">♫</div><h3>Música en línea</h3><p>Accede al reproductor integrado para acompañar tu entrenamiento con conexión a Internet.</p></article>
+          <article class="card"><div class="ico">☆</div><h3>Favoritos e historial</h3><p>Guarda movimientos favoritos y consulta el historial local de tus sesiones.</p></article>
+          <article class="card"><div class="ico">◉</div><h3>Diseñada para Android</h3><p>Navegación sencilla y compatibilidad con el botón físico de retroceso del teléfono.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ejercicios">
+      <div class="wrap exercise-band">
+        <div><div class="eyebrow">Biblioteca KTBFX</div><div class="exercise-number">94</div><h2>Movimientos para explorar y aprender.</h2></div>
+        <div><p>Consulta fichas con instrucciones paso a paso, grupos musculares, orientación general de carga y notas de seguridad. Algunos movimientos incluyen enlaces a demostraciones educativas externas.</p><div class="chips"><span class="chip">Por categorías</span><span class="chip">Por niveles</span><span class="chip">Instrucciones</span><span class="chip">Referencias visuales</span></div></div>
+      </div>
+    </section>
+
+    <section id="entrenamiento">
+      <div class="wrap">
+        <div class="section-head"><div class="eyebrow">Tu sesión, a tu manera</div><h2>Organiza. Controla. Registra.</h2><p>Configura tus intervalos y sigue el ritmo de tu entrenamiento con controles sencillos.</p></div>
+        <div class="grid">
+          <article class="card"><div class="ico">▶</div><h3>Iniciar y pausar</h3><p>Comienza, pausa y reanuda el temporizador según el desarrollo de tu sesión.</p></article>
+          <article class="card"><div class="ico">⟳</div><h3>Intervalos configurables</h3><p>Ajusta los periodos de actividad y descanso, y avanza entre fases.</p></article>
+          <article class="card"><div class="ico">◷</div><h3>Rondas y avisos</h3><p>Consulta las rondas y activa o desactiva las alertas habladas.</p></article>
+        </div>
+        <p class="note">Empieza con movimientos que puedas controlar y una carga adecuada a tu experiencia. La aplicación no sustituye la orientación de un profesional del entrenamiento.</p>
+      </div>
+    </section>
+
+    <section id="descargas">
+      <div class="wrap">
+        <div class="download">
+          <div><div class="eyebrow" style="color:#35402a">KTBFX · Versión 2.0.0</div><h2>Prepárate para tu próxima sesión.</h2><p>Consulta el proyecto, las versiones publicadas y los archivos disponibles en el repositorio oficial.</p></div>
+          <a class="button" href="https://github.com/freddiveditx117-art/KTBFX/releases">Ver descargas ↗</a>
+        </div>
+        <p class="note">La descarga del APK estará disponible cuando se publique un archivo en la sección Releases. La página no ofrece una descarga directa mientras no exista una versión publicada.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap foot"><span>© <span id="year"></span> KTBFX — Kettlebell Training Experience</span><span>Desarrollado por FreddiV · <a href="https://github.com/freddiveditx117-art/KTBFX">Repositorio oficial</a></span></div></footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
