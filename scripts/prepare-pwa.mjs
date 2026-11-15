@@ -73,7 +73,7 @@ const headTags = `
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="KTBFX">
 `;
-html = html.replace('</head>', headTags + '\\n  </head>');
+html = html.replace('</head>', headTags + '\n  </head>');
 const registration = `
 <script>
   if ('serviceWorker' in navigator) {
@@ -85,6 +85,6 @@ const registration = `
   }
 </script>
 `;
-html = html.replace('</body>', registration + '\\n</body>');
+html = html.replace('</body>', registration + '\n</body>');
 fs.writeFileSync(htmlPath, html);
 console.log('PWA files prepared for GitHub Pages at ' + base);
