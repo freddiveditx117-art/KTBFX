@@ -1,13 +1,13 @@
-# @freddiveditx117/ktbfx-achievements
+# @freddiveditx117-art/ktbfx-achievements
 
 Sistema de logros, medallas, niveles, XP y misiones semanales para Expo y React Native.
 
 ## Instalación
 
-Configura el registro de GitHub Packages para el scope `@freddiveditx117` en tu proyecto y autentícate con un token de GitHub que tenga permiso `read:packages`. No guardes el token en el código ni lo subas al repositorio.
+Configura el registro de GitHub Packages para el scope `@freddiveditx117-art` en tu proyecto y autentícate con un token de GitHub que tenga permiso `read:packages`. No guardes el token en el código ni lo subas al repositorio.
 
 ```bash
-npm install @freddiveditx117/ktbfx-achievements
+npm install @freddiveditx117-art/ktbfx-achievements
 ```
 
 Instala también las dependencias peer si tu aplicación aún no las tiene:
@@ -21,7 +21,7 @@ npx expo install @react-native-async-storage/async-storage @expo/vector-icons
 Envuelve la aplicación o la sección que usará el sistema:
 
 ```jsx
-import { AchievementsProvider } from "@freddiveditx117/ktbfx-achievements";
+import { AchievementsProvider } from "@freddiveditx117-art/ktbfx-achievements";
 
 export default function App() {
   return (
@@ -35,7 +35,7 @@ export default function App() {
 Registra actividades desde una pantalla o componente:
 
 ```jsx
-import { useAchievements } from "@freddiveditx117/ktbfx-achievements";
+import { useAchievements } from "@freddiveditx117-art/ktbfx-achievements";
 
 function WorkoutCompleteButton() {
   const { recordActivity, progress, level } = useAchievements();
