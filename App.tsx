@@ -9,14 +9,14 @@ type Tab = 'home'|'library'|'routine'|'music'|'progress'|'profile';
 type Move={id:string;name:string;category:string;level:string;focus:string;artKey:string;description:string;steps:string[];safety:string;videoQuery:string;loadGuide:string};
 const artLabels:Record<string,string>={legs:'SENTADILLA',hip:'BISAGRA DE CADERA',upper:'PRESS',back:'REMO',carry:'TRANSPORTE',power:'POTENCIA',mobility:'CONTROL DEL TRONCO',lunge:'ZANCADA'};
 const photoByArt:Record<string,string>={
- legs:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_Front_Squat_4_Full.jpg?width=960',
- hip:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960',
- upper:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960',
- back:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960',
- carry:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960',
- power:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebells_for_a_workout.jpg?width=960',
- mobility:'https://commons.wikimedia.org/wiki/Special:FilePath/Turkish_Get_Up.jpg?width=960',
- lunge:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960'
+ legs:'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Kettlebell_Front_Squat_4_Full.jpg/960px-Kettlebell_Front_Squat_4_Full.jpg',
+ hip:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Kettlebell_workout.jpg/960px-Kettlebell_workout.jpg',
+ upper:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Kettlebell_workout.jpg/960px-Kettlebell_workout.jpg',
+ back:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Kettlebell_workout.jpg/960px-Kettlebell_workout.jpg',
+ carry:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Kettlebell_workout.jpg/960px-Kettlebell_workout.jpg',
+ power:'https://upload.wikimedia.org/wikipedia/commons/0/00/Kettlebells_for_a_workout.jpg',
+ mobility:'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Turkish_Get_Up.jpg/960px-Turkish_Get_Up.jpg',
+ lunge:'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Kettlebell_workout.jpg/960px-Kettlebell_workout.jpg'
 };
 const photoCreditByArt:Record<string,string>={
  legs:'Foto: Taco Fleur · CC BY-SA 4.0',
