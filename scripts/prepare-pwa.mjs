@@ -65,6 +65,12 @@ self.addEventListener('fetch', (event) => {
 `;
 fs.writeFileSync(path.join(out, 'sw.js'), sw);
 
+// SEO: metadata and crawlable discovery files for Google and other search engines.
+const siteUrl = 'https://freddiveditx117-art.github.io/KTBFX/';
+fs.writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\\nAllow: /\\nSitemap: ' + siteUrl + 'sitemap.xml\\n');
+fs.writeFileSync(path.join(out, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>' + siteUrl + '</loc><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>');
+
 let html = fs.readFileSync(htmlPath, 'utf8');
 const headTags = `
     <link rel="manifest" href="${base}manifest.webmanifest">
@@ -73,7 +79,22 @@ const headTags = `
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="KTBFX">
 `;
-html = html.replace('</head>', headTags + '\n  </head>');
+const seoTags = `
+    <title>KTBFX — Kettlebell Training Experience | Entrenamiento</title>
+    <meta name="description" content="KTBFX: aplicación de entrenamiento con kettlebell. Explora 94 ejercicios, crea rutinas y registra tus sesiones desde la web o tu móvil.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://freddiveditx117-art.github.io/KTBFX/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KTBFX — Kettlebell Training Experience">
+    <meta property="og:description" content="Entrena con kettlebell: 94 ejercicios, rutinas y seguimiento de sesiones.">
+    <meta property="og:url" content="https://freddiveditx117-art.github.io/KTBFX/">
+    <meta property="og:image" content="https://freddiveditx117-art.github.io/KTBFX/icon.png">
+    <meta name="twitter:card" content="summary">
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"WebApplication","name":"KTBFX","alternateName":"Kettlebell Training Experience","url":"https://freddiveditx117-art.github.io/KTBFX/","description":"Aplicación web de entrenamiento con kettlebell con biblioteca de ejercicios, rutinas y registro de sesiones.","applicationCategory":"HealthApplication","operatingSystem":"Web, Android, iOS"}
+    </script>
+`;
+html = html.replace('</head>', headTags + seoTags + '\n  </head>');
 const apkDownload = 'https://github.com/freddiveditx117-art/KTBFX/releases/download/ktbfx-achievements-v1.0.0/application-7068f176-dd6d-4adc-8198-96e509607bd1.apk';
 const apkButton = `
 <style>
