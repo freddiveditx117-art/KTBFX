@@ -10,40 +10,65 @@ on:
       - 'app.json'
       - 'eas.json'
       - 'package.json'
-      - 'package-lock.json'
       - 'assets/**'
       - '.github/workflows/build.yml'
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ktbfx-android-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
+    name: Compile Android APK on GitHub
     runs-on: ubuntu-latest
+    timeout-minutes: 45
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android platform and build tools
+        run: sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Cache Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Install JavaScript dependencies
+        run: npm install --no-audit --no-fund
 
       - name: Validate Expo configuration
         run: npx expo config --json
 
-      - name: Check Expo account
-        run: npx eas-cli@latest whoami
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android --clean --no-install
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          CI: '1'
 
-      - name: Configure Expo project
-        run: npx eas-cli@latest init --account freddiv1117 --non-interactive
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: Build installable debug APK
+        working-directory: android
+        run: ./gradlew :app:assembleDebug --no-daemon
 
-      - name: Build Android APK
-        run: npx eas-cli@latest build --platform android --profile preview --non-interactive --no-wait
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: KTBFX-Android-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
