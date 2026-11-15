@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Pressable, StyleSheet, TextInput, Image, Alert, Linking } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, Pressable, StyleSheet, TextInput, Image, Alert, Linking, BackHandler } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -62,6 +62,7 @@ const moves:Move[]=raw.map((r,i)=>{const guide=movementGuide(r[0],r[1],r[2]);ret
 const categories=['Todos',...Array.from(new Set(moves.map(m=>m.category)))];
 export default function App(){
  const [tab,setTab]=useState<Tab>('home');const [query,setQuery]=useState('');const [category,setCategory]=useState('Todos');const [selected,setSelected]=useState<Move|null>(null);const [name,setName]=useState('');const [email,setEmail]=useState('');const [password,setPassword]=useState('');const [logged,setLogged]=useState(false);const [profile,setProfile]=useState('');const [sessions,setSessions]=useState<string[]>([]);const [favorites,setFavorites]=useState<string[]>([]);const [routine,setRoutine]=useState<string[]>(['m0','m10','m41']);const [seconds,setSeconds]=useState(0);const [running,setRunning]=useState(false);const [rest,setRest]=useState(30);const [isRest,setIsRest]=useState(false);const [loaded,setLoaded]=useState(false);
+ useEffect(()=>{const subscription=BackHandler.addEventListener('hardwareBackPress',()=>{if(selected){setSelected(null);return true;}if(tab!=='home'){setTab('home');setQuery('');setCategory('Todos');return true;}return false;});return()=>subscription.remove();},[selected,tab]);
  useEffect(()=>{(async()=>{try{const raw=await AsyncStorage.getItem('ktbfx-v2');if(raw){const d=JSON.parse(raw);setLogged(!!d.logged);setProfile(d.profile||'');setSessions(d.sessions||[]);setFavorites(d.favorites||[]);setRoutine(d.routine||['m0','m10','m41']);}}catch(e){}finally{setLoaded(true)}})()},[]);
  useEffect(()=>{if(loaded)AsyncStorage.setItem('ktbfx-v2',JSON.stringify({logged,profile,sessions,favorites,routine})).catch(()=>{});},[loaded,logged,profile,sessions,favorites,routine]);
  useEffect(()=>{if(!running)return;const id=setInterval(()=>setSeconds(v=>{if(isRest&&v<=1){setRunning(false);setIsRest(false);return 0;}return isRest?v-1:v+1;}),1000);return()=>clearInterval(id)},[running,isRest]);
