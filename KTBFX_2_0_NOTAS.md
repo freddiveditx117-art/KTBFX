@@ -1,21 +1,36 @@
-# KTBFX 2.0 — actualización de la aplicación
+# KTBFX — notas de la versión actual
 
-## Incluido en esta entrega
-- Catálogo inicial de 94 movimientos con categorías, niveles y búsqueda.
-- Fichas con pasos y notas de seguridad. Las ilustraciones actuales son representativas de cada categoría; no son una imagen anatómica única de cada movimiento.
-- Acceso a búsquedas de videos demostrativos en YouTube. Los videos no están alojados dentro de la app.
-- Rutina editable, temporizador de sesión y referencia de descanso.
-- Favoritos, perfil local e historial guardados en el dispositivo mediante AsyncStorage.
-- Interfaz oscura en negro, rojo y blanco, con cinco pestañas.
+## Funciones de la aplicación principal
 
-## Limitaciones importantes
-Esta entrega es una versión local/prototipo. El registro no verifica correos ni ofrece autenticación segura; el progreso no se sincroniza en la nube ni se recupera en otro teléfono. Para ello hay que configurar Supabase o Firebase con credenciales del propietario. No introduzcas contraseñas reutilizadas.
+- Biblioteca de 94 movimientos con categorías, niveles y búsqueda.
+- Guías paso a paso, enfoque muscular, orientación general de carga y notas de seguridad.
+- Fotografías de referencia reutilizadas por familias de movimientos, con créditos de autor/licencia. No son 94 imágenes individuales.
+- Acceso a búsquedas de videos educativos en YouTube para movimientos básicos e intermedios. El contenido es externo; los movimientos avanzados muestran un aviso para aprender con supervisión cualificada.
+- Rutina editable, favoritos e historial de sesiones.
+- Cronómetro y temporizador de intervalos con actividad y descanso configurables.
+- Iniciar, pausar, reanudar, reiniciar y saltar de fase; conteo de rondas y alertas habladas.
+- Pestaña de música con Dogmazic Radio mediante WebView. Requiere conexión y las licencias dependen de cada artista.
+- Navegación lateral vertical y soporte para el botón físico Atrás de Android.
+- Persistencia local mediante AsyncStorage.
 
-Las ilustraciones existentes se reutilizan como imágenes representativas de sus categorías. Las demostraciones enlazan a búsquedas de YouTube y requieren conexión a Internet.
+## Módulo de logros
 
-## Compilar
-1. Sustituye el contenido del repositorio por los archivos de este ZIP, conservando `.github/workflows/build.yml`.
-2. Ejecuta `npm install` (instalará AsyncStorage).
-3. Inicia el workflow de GitHub Actions para generar el APK con EAS.
+El paquete `packages/ktbfx-achievements` ofrece medallas, XP, niveles y misiones semanales como módulo independiente. Debe conectarse explícitamente a los eventos reales de la aplicación principal.
 
-No se ha generado ni probado un APK en este entorno.
+## Limitaciones
+
+- El perfil es una demostración local; no verifica correo ni implementa autenticación segura.
+- Los datos no se sincronizan con la nube ni se recuperan automáticamente en otro dispositivo.
+- Las fotos son referencias de categoría y pueden repetirse.
+- Los videos y la radio dependen de servicios externos y conexión a Internet.
+- El archivo de configuración Expo indica versión 2.0.0 y Android versionCode 2; la etiqueta visual KTBFX 3.0 en la pantalla principal no cambia esos identificadores.
+
+## Compilar Android
+
+El workflow `.github/workflows/build.yml` valida Expo, ejecuta prebuild y compila un APK debug con Gradle. Para ejecutarlo: GitHub → Actions → Build KTBFX Android APK → Run workflow. Descarga el artefacto cuando todos los pasos estén correctos.
+
+EAS mantiene dos perfiles útiles:
+- `preview`: APK para distribución interna.
+- `production`: AAB para el proceso de Google Play.
+
+Una configuración correcta no garantiza una compilación exitosa. Comprueba siempre el estado de GitHub Actions o Expo EAS. No publiques `EXPO_TOKEN` ni otros secretos.
