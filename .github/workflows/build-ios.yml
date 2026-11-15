@@ -1,0 +1,60 @@
+name: Build KTBFX for iOS Simulator
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ktbfx-ios-simulator
+  cancel-in-progress: false
+
+jobs:
+  build-ios-simulator:
+    name: Validate and build iOS Simulator app
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Validate Expo configuration
+        run: npx expo config --json > expo-config.json
+
+      - name: Install EAS CLI
+        run: npm install --global eas-cli
+
+      - name: Build iOS Simulator app
+        run: eas build --platform ios --profile ios-simulator --non-interactive --wait --json > eas-ios-build.json
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          CI: '1'
+
+      - name: Download and verify simulator build
+        run: |
+          BUILD_URL="$(node -e "const x=require('./eas-ios-build.json'); const b=Array.isArray(x)?x[0]:x; process.stdout.write(b.artifacts?.buildUrl || '')")"
+          test -n "$BUILD_URL"
+          curl --fail --location --retry 3 "$BUILD_URL" --output KTBFX-2.0.0-iOS-Simulator.tar.gz
+          test -s KTBFX-2.0.0-iOS-Simulator.tar.gz
+          tar -tzf KTBFX-2.0.0-iOS-Simulator.tar.gz >/dev/null
+          sha256sum KTBFX-2.0.0-iOS-Simulator.tar.gz | tee KTBFX-2.0.0-iOS-Simulator.tar.gz.sha256
+
+      - name: Upload simulator build
+        uses: actions/upload-artifact@v4
+        with:
+          name: KTBFX-2.0.0-iOS-Simulator
+          path: |
+            KTBFX-2.0.0-iOS-Simulator.tar.gz
+            KTBFX-2.0.0-iOS-Simulator.tar.gz.sha256
+          if-no-files-found: error
+          retention-days: 30
