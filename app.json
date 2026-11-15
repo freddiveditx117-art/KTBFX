@@ -53,6 +53,9 @@
       "description": "Entrenamiento y registro de sesiones con kettlebell.",
       "themeColor": "#10110f",
       "backgroundColor": "#10110f"
+    },
+    "experiments": {
+      "baseUrl": "/KTBFX"
     }
   }
 }
