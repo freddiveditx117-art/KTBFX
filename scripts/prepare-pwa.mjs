@@ -33,7 +33,7 @@ function filesIn(dir, prefix = '') {
 }
 const precache = filesIn(out)
   .filter((file) => file !== 'sw.js')
-  .map((file) => base + file.replaceAll('\\\\', '/'));
+  .map((file) => base + file.replaceAll('\\', '/'));
 precache.unshift(base);
 const sw = `const CACHE = 'ktbfx-web-v1';
 const BASE = '${base}';
