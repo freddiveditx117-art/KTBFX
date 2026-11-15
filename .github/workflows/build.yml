@@ -38,7 +38,7 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Apply compatible dependency security fixes
-        run: npm audit fix --no-fund
+        run: npm audit fix --no-fund || echo "Some moderate advisories have no compatible automatic fix; the high-severity gate runs next."
 
       - name: Check production dependencies
         run: npm audit --omit=dev --audit-level=high
