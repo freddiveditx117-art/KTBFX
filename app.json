@@ -12,7 +12,6 @@
     },
     "android": {
       "package": "com.ktbfx.app",
-      "versionCode": 3,
       "blockedPermissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO",
@@ -41,6 +40,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "owner": "freddiv1117"
+    "owner": "freddiv1117",
+    "extra": {
+      "eas": {
+        "projectId": "6435b9cd-e388-49dc-9b59-eb75517f0036"
+      }
+    }
   }
 }
