@@ -45,6 +45,14 @@
       "eas": {
         "projectId": "6435b9cd-e388-49dc-9b59-eb75517f0036"
       }
+    },
+    "web": {
+      "bundler": "metro",
+      "name": "KTBFX",
+      "shortName": "KTBFX",
+      "description": "Entrenamiento y registro de sesiones con kettlebell.",
+      "themeColor": "#10110f",
+      "backgroundColor": "#10110f"
     }
   }
 }
