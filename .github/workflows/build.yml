@@ -2,16 +2,6 @@ name: Build and publish KTBFX Android APK
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'App.tsx'
-      - 'app.json'
-      - 'eas.json'
-      - 'package.json'
-      - 'assets/**'
-      - '.github/workflows/build.yml'
 
 permissions:
   contents: write
