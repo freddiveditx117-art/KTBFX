@@ -1,0 +1,24 @@
+{
+  "name": "@freddiveditx117/ktbfx-achievements",
+  "version": "1.0.0",
+  "description": "Sistema reutilizable de logros, medallas, niveles, XP y misiones semanales para KTBFX en Expo y React Native.",
+  "main": "src/index.js",
+  "react-native": "src/index.js",
+  "files": ["src", "README.md"],
+  "keywords": ["ktbfx", "expo", "react-native", "achievements", "gamification", "kettlebell"],
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@expo/vector-icons": "*",
+    "@react-native-async-storage/async-storage": "^2.0.0",
+    "react": ">=18",
+    "react-native": ">=0.72"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freddiveditx117-art/KTBFX.git",
+    "directory": "packages/ktbfx-achievements"
+  }
+}
