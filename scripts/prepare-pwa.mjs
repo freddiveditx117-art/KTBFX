@@ -74,6 +74,21 @@ const headTags = `
     <meta name="apple-mobile-web-app-title" content="KTBFX">
 `;
 html = html.replace('</head>', headTags + '\n  </head>');
+const apkDownload = 'https://github.com/freddiveditx117-art/KTBFX/releases/download/ktbfx-achievements-v1.0.0/application-7068f176-dd6d-4adc-8198-96e509607bd1.apk';
+const apkButton = `
+<style>
+  #ktbfx-apk-download {
+    position: fixed; right: 14px; bottom: max(14px, env(safe-area-inset-bottom));
+    z-index: 2147483000; display: inline-flex; align-items: center; justify-content: center;
+    padding: 12px 16px; border-radius: 999px; background: #b7f34a; color: #111;
+    font: 700 14px/1.2 system-ui, sans-serif; text-decoration: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,.35); border: 1px solid rgba(0,0,0,.18);
+  }
+  #ktbfx-apk-download:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+</style>
+<a id="ktbfx-apk-download" href="${apkDownload}" download="KTBFX.apk" aria-label="Descargar aplicación KTBFX para Android">⬇ Descargar APK</a>
+`;
+html = html.replace('</body>', apkButton + '\\n' + '</body>');
 const registration = `
 <script>
   if ('serviceWorker' in navigator) {
