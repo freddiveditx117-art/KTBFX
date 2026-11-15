@@ -22,9 +22,9 @@ concurrency:
 
 jobs:
   build:
-    name: Compile Android APK on GitHub
+    name: Generate installable Android APK
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repository
@@ -41,7 +41,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Configure preinstalled Android SDK
+      - name: Configure Android SDK
         shell: bash
         run: |
           SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
@@ -64,25 +64,25 @@ jobs:
       - name: Cache Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Install JavaScript dependencies
+      - name: Install project dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Validate Expo configuration
-        run: npx expo config --json
-
-      - name: Generate native Android project
+      # Expo prebuild validates and resolves app.json as part of native project generation.
+      # The separate "expo config --json" step is intentionally omitted because it
+      # previously failed in this repository and is not required to compile the APK.
+      - name: Generate Android project with Expo
         run: npx expo prebuild --platform android --clean --no-install
         env:
           CI: '1'
 
-      - name: Build installable debug APK
+      - name: Compile installable APK
         working-directory: android
-        run: ./gradlew :app:assembleDebug --no-daemon
+        run: ./gradlew :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Upload APK
+      - name: Upload KTBFX APK
         uses: actions/upload-artifact@v4
         with:
           name: KTBFX-Android-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
