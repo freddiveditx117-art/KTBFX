@@ -16,6 +16,16 @@ const photoByArt:Record<string,string>={
  mobility:'https://commons.wikimedia.org/wiki/Special:FilePath/Turkish_Get_Up.jpg?width=960',
  lunge:'https://commons.wikimedia.org/wiki/Special:FilePath/Kettlebell_workout.jpg?width=960'
 };
+const photoCreditByArt:Record<string,string>={
+ legs:'Foto: Taco Fleur · CC BY-SA 4.0',
+ hip:'Foto: Rafaelqcn · CC BY-SA 4.0',
+ upper:'Foto: Rafaelqcn · CC BY-SA 4.0',
+ back:'Foto: Rafaelqcn · CC BY-SA 4.0',
+ carry:'Foto: Rafaelqcn · CC BY-SA 4.0',
+ power:'Foto: Lululemon Athletica · CC BY 2.0',
+ mobility:'Foto: Robertwilson009 · CC BY-SA 4.0',
+ lunge:'Foto: Rafaelqcn · CC BY-SA 4.0'
+};
 function MovementArt({move,large=false,compact=false}:{move:Move;large?:boolean;compact?:boolean}){
  return <View style={[s.artPanel,large&&s.artPanelLarge,compact&&s.artPanelCompact]}>
   <Image source={{uri:photoByArt[move.artKey]||photoByArt.power}} style={s.realExercisePhoto} resizeMode="cover"/>
@@ -23,7 +33,7 @@ function MovementArt({move,large=false,compact=false}:{move:Move;large?:boolean;
   <Image source={require('./assets/icon.png')} style={[s.exerciseLogo,compact&&s.exerciseLogoCompact]} resizeMode="contain"/>
   {!compact&&<Text style={s.photoReference}>FOTO DE REFERENCIA</Text>}
   {!compact&&<Text style={s.photoTitle}>{move.name.toUpperCase()}</Text>}
-  {!compact&&<Text style={s.photoCredit}>Wikimedia Commons · CC BY-SA</Text>}
+  {!compact&&<Text style={s.photoCredit}>{photoCreditByArt[move.artKey]||'Wikimedia Commons · licencia indicada en la fuente'}</Text>}
  </View>
 }
 const raw:[string,string,string,string,string][]=[
