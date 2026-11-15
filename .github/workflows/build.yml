@@ -1,8 +1,18 @@
-
 name: Build KTBFX Android APK
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'App.tsx'
+      - 'app.json'
+      - 'eas.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'assets/**'
+      - '.github/workflows/build.yml'
 
 jobs:
   build:
@@ -20,13 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Validate Expo configuration
+        run: npx expo config --json
+
       - name: Check Expo account
         run: npx eas-cli@latest whoami
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Diagnose Expo config
-        run: npx expo config --json
 
       - name: Configure Expo project
         run: npx eas-cli@latest init --account freddiv1117 --non-interactive
@@ -37,4 +47,3 @@ jobs:
         run: npx eas-cli@latest build --platform android --profile preview --non-interactive --no-wait
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-
